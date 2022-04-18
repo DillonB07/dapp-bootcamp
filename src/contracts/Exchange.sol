@@ -1,4 +1,4 @@
-pragma solidity ^0.5.0;
+pragma solidity >=0.4.22 <0.8.0;
 
 import "./Token.sol";
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
@@ -196,18 +196,16 @@ contract Exchange {
         uint256 _feeAmount = _amountGive.mul(feePercent).div(100);
 
         tokens[_tokenGet][msg.sender] = tokens[_tokenGet][msg.sender].sub(
-            _amountGet
+            _amountGet.add(_feeAmount)
         );
-        tokens[_tokenGet][_user] = tokens[_tokenGet][_user].add(
-            _amountGive.add(_feeAmount)
-        );
+        tokens[_tokenGet][_user] = tokens[_tokenGet][_user].add(_amountGet);
         tokens[_tokenGet][feeAccount] = tokens[_tokenGet][feeAccount].add(
             _feeAmount
         );
-        tokens[_tokenGive][msg.sender] = tokens[_tokenGive][msg.sender].sub(
+        tokens[_tokenGive][msg.sender] = tokens[_tokenGive][msg.sender].add(
             _amountGive
         );
-        tokens[_tokenGive][_user] = tokens[_tokenGive][_user].add(_amountGet);
+        tokens[_tokenGive][_user] = tokens[_tokenGive][_user].sub(_amountGive);
 
         emit Trade(
             _orderId,
