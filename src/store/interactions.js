@@ -1,5 +1,10 @@
 import Web3 from "web3";
-import { exchangeLoaded, tokenLoaded, web3AccountLoaded, web3Loaded } from "./actions";
+import {
+  exchangeLoaded,
+  tokenLoaded,
+  web3AccountLoaded,
+  web3Loaded,
+} from "./actions";
 import Token from "../abis/Token.json";
 import Exchange from "../abis/Exchange.json";
 
@@ -25,7 +30,7 @@ export const loadToken = async (web3, networkId, dispatch) => {
     dispatch(tokenLoaded(token));
     return token;
   } catch (error) {
-    window.alert(
+    console.log(
       "Contract not deployed to the current network. Please select another network with Metamask."
     );
     return null;
@@ -41,7 +46,7 @@ export const loadExchange = async (web3, networkId, dispatch) => {
     dispatch(exchangeLoaded(exchange));
     return exchange;
   } catch (error) {
-    window.alert(
+    console.log(
       "Contract not deployed to the current network. Please select another network with Metamask."
     );
     return null;
