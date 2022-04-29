@@ -35,7 +35,7 @@ export class Trades extends Component {
               <thead>
                 <tr>
                   <th>Time</th>
-                  <th>DAPP</th>
+                  <th>DIL</th>
                   <th>DIL/ETH</th>
                 </tr>
               </thead>
