@@ -9,6 +9,8 @@ import {
   allOrdersLoaded,
   orderCancelling,
   orderCancelled,
+  orderFilling,
+  orderFilled,
 } from "./actions";
 import Token from "../abis/Token.json";
 import Exchange from "../abis/Exchange.json";
@@ -90,6 +92,16 @@ export const loadAllOrders = async (exchange, dispatch) => {
   dispatch(allOrdersLoaded(allOrders));
 };
 
+export const subscribeToEvents = async (exchange, dispatch) => {
+  exchange.events.Cancel({}, (error, event) => {
+    dispatch(orderCancelled(event.returnValues));
+  });
+
+  exchange.events.Trade({}, (error, event) => {
+    dispatch(orderFilled(event.returnValues));
+  });
+};
+
 export const cancelOrder = (dispatch, exchange, order, account) => {
   exchange.methods
     .cancelOrder(order.id)
@@ -103,8 +115,15 @@ export const cancelOrder = (dispatch, exchange, order, account) => {
     });
 };
 
-export const subscribeToEvents = async (exchange, dispatch) => {
-  exchange.events.Cancel({}, (error, event) => {
-    dispatch(orderCancelled(event.returnValues));
-  });
+export const fillOrder = (dispatch, exchange, order, account) => {
+  exchange.methods
+    .fillOrder(order.id)
+    .send({ from: account })
+    .on("transactionHash", (hash) => {
+      dispatch(orderFilling());
+    })
+    .on("error", (error) => {
+      console.log(error);
+      window.alert("An error has occured", error);
+    });
 };
