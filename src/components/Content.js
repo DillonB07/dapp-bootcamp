@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { loadAllOrders } from "../store/interactions";
+import { loadAllOrders, subscribeToEvents } from "../store/interactions";
 import { exchangeSelector } from "../store/selectors";
 import MyTransactions from "./MyTransactions";
 import OrderBook from "./OrderBook";
@@ -9,11 +9,13 @@ import Trades from "./Trades";
 
 class Content extends Component {
   componentDidMount() {
-    this.loadBlockChainData(this.props.dispatch);
+    this.loadBlockChainData(this.props);
   }
 
-  async loadBlockChainData(dispatch) {
-    await loadAllOrders(this.props.exchange, dispatch);
+  async loadBlockChainData(props) {
+    const { dispatch, exchange } = props;
+    await loadAllOrders(exchange, dispatch);
+    await subscribeToEvents(exchange, dispatch);
   }
 
   render() {
