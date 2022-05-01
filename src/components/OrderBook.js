@@ -60,7 +60,7 @@ const showOrderBook = (props) => {
   );
 };
 
-export class orderBook extends Component {
+export class OrderBook extends Component {
   render() {
     return (
       <div className="vertical">
@@ -92,4 +92,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(orderBook);
+export default connect(mapStateToProps)(OrderBook);
