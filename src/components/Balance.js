@@ -111,6 +111,7 @@ const showForm = (props) => {
               onChange={(e) =>
                 dispatch(etherDepositAmountChanged(e.target.value))
               }
+              className="form-control form-control-sm bg-dark text-white"
               required
             />
           </div>
@@ -142,6 +143,7 @@ const showForm = (props) => {
               onChange={(e) =>
                 dispatch(tokenDepositAmountChanged(e.target.value))
               }
+              className="form-control form-control-sm bg-dark text-white"
               required
             />
           </div>
@@ -174,6 +176,7 @@ const showForm = (props) => {
               onChange={(e) =>
                 dispatch(etherWithdrawAmountChanged(e.target.value))
               }
+              className="form-control form-control-sm bg-dark text-white"
               required
             />
           </div>
@@ -205,6 +208,7 @@ const showForm = (props) => {
               onChange={(e) =>
                 dispatch(tokenWithdrawAmountChanged(e.target.value))
               }
+              className="form-control form-control-sm bg-dark text-white"
               required
             />
           </div>
